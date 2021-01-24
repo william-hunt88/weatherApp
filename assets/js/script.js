@@ -97,6 +97,7 @@ var createFuture = function(data) {
 };
 
 var createUvi = function(uvi) {
+    //create or request colored icon to represent UV index
     console.log(uvi);
 };
 
