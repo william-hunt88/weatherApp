@@ -1,7 +1,10 @@
 // Add Img Alts
 // Add Notes
 // Refactor so that city from saved button can be passed
-//
+// account for errors....response.ok
+// mobile ready
+
+
 var cityUrl = $("#cityInput").val().trim();
 var key = "f183369b23d768246e94cc35ace9f5f9"
 var current = "https://api.openweathermap.org/data/2.5/weather?q=" + cityUrl + "&appid=" + key;
@@ -12,43 +15,51 @@ $(".searchBtn").click(function() {
     // Gets value of input
     var city = $("#cityInput").val().trim();
 
-    // add name to list in leftSide
-    $(".savedDiv").append("<button class ='savedBtn'>" + city + "</button>");
-
     // passes city to another function to do the rest 
     beginHTML(city);
 });
 
-//SavedBtn is clicked
+//SavedBtn is clicked and city in button is passed to beginHTML func
 $(".savedDiv").on("click", ".savedBtn", function (event){
     var city = $(event.target).html().trim();
-    console.log(city);
     beginHTML(city);
-})
+});
 
 var beginHTML = function(city) {
-
-        // add name of city to right side
-        $(".rightWrap").html(" ");
-        $(".rightWrap").append("<span class='card-title'>" + city + "</span>")
-    
-        // get todays date for dipslay
-        var date = moment().format("dddd, MMMM Do YYYY");
-         
-        // add date to right side
-        $(".rightWrap").append("<span class = card-subtile>" + date + "</span>")
     
         // assigns current api url to a variable 
         var current = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
         
-        // fetches data package
+        // fetches first data package in order to extract Lat and Lon
         fetch(current).then(function(response){
             if(response.ok) {
                 response.json().then(function(data){
+
+                    // add name to list in leftSide
+                    $(".savedDiv").append("<button class ='savedBtn'>" + city + "</button>");
+
+                    // clear destination div before populating
+                    $(".rightWrap").html(" ");
+
+                    // add name of city to right side
+                    $(".rightWrap").append("<span class='card-title'>" + city + "</span>");
+       
+                    // get todays date for dipslay
+                    var date = moment().format("dddd, MMMM Do YYYY");
+        
+                    // add date to right side
+                    $(".rightWrap").append("<span class = card-subtile>" + date + "</span>")
+
+                    //data package i sent to another function in order retrieve full forecast API
                     futureFetch(data);
                 })
             } else {
                 // alert to please choose valid city
+                window.alert("please choose a valid city");
+
+                // clear input of nonvalid value
+                $("#cityInput").val("");
+
             }
         });
 }

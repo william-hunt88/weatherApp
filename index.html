@@ -1,67 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Williams Weather App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-<body>
-    <header><h1> Weather Dashboard </h1></header>
-    <div class = "container">
-        <div class = "leftSide">
-            <h4>Search for a city!</h4>
-            <div class = "inputDiv">
-                <input type="text" class="cityInput" id="cityInput">
-                <button class="btn searchBtn"><i class="fa fa-search"></i></button>
-            </div>
-            <div class = "savedDiv">
-            </div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap"
+      rel="stylesheet"/>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"/>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <header><h1>Weather Dashboard</h1></header>
+    <div class="container">
+      <div class="leftSide">
+        <h4>Search for a city!</h4>
+        <div class="inputDiv">
+          <input type="text" class="cityInput" id="cityInput" />
+          <button class="btn searchBtn"><i class="fa fa-search"></i></button>
         </div>
-        <div class = "rightOne">
-            <div class= "rightWrap card">
-            </div>
-            <div class="card">
-                <ul class="conditions">
-                </ul>
-            </div>
+        <div class="savedDiv"></div>
+      </div>
+      <div class="rightOne">
+        <div class="rightWrap card"></div>
+        <div class="card">
+          <ul class="conditions"></ul>
         </div>
-        <div class="rightTwo row">
-            <div class="col-2">
-                <div class="card dayPlusOne">
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="card dayPlusTwo">
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="dayPlusThree">
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="card dayPlusFour">
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="card dayPlusFive">
-                </div>
-            </div>
+      </div>
+      <div class="rightTwo row">
+        <div class="col-2">
+          <div class="card dayPlusOne"></div>
         </div>
+        <div class="col-2">
+          <div class="card dayPlusTwo"></div>
+        </div>
+        <div class="col-2">
+          <div class="dayPlusThree"></div>
+        </div>
+        <div class="col-2">
+          <div class="card dayPlusFour"></div>
+        </div>
+        <div class="col-2">
+          <div class="card dayPlusFive"></div>
+        </div>
+      </div>
     </div>
-
-
-
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/6cb90de3f9.js" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
-</body>
+  </body>
 </html>
