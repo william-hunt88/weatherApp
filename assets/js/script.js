@@ -2,12 +2,9 @@
 // Add Notes
 // Refactor so that city from saved button can be passed
 //
-
-
-
-var city = $("#cityInput").val().trim();
+var cityUrl = $("#cityInput").val().trim();
 var key = "f183369b23d768246e94cc35ace9f5f9"
-var current = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
+var current = "https://api.openweathermap.org/data/2.5/weather?q=" + cityUrl + "&appid=" + key;
 
 
 //Button is clicked and value is taken
@@ -18,30 +15,43 @@ $(".searchBtn").click(function() {
     // add name to list in leftSide
     $(".savedDiv").append("<button class ='savedBtn'>" + city + "</button>");
 
-    // add name of city to right side
-    $(".rightWrap").html(" ");
-    $(".rightWrap").append("<span class='card-title'>" + city + "</span>")
-
-    // get todays date for dipslay
-    var date = moment().format("dddd, MMMM Do YYYY");
-     
-    // add date to right side
-    $(".rightWrap").append("<span class = card-subtile>" + date + "</span>")
-
-    // assigns current api url to a variable 
-    var current = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
-    
-    // fetches data package
-    fetch(current).then(function(response){
-        if(response.ok) {
-            response.json().then(function(data){
-                futureFetch(data);
-            })
-        } else {
-            // alert to please choose valid city
-        }
-    });
+    // passes city to another function to do the rest 
+    beginHTML(city);
 });
+
+//SavedBtn is clicked
+$(".savedDiv").on("click", ".savedBtn", function (event){
+    var city = $(event.target).html().trim();
+    console.log(city);
+    beginHTML(city);
+})
+
+var beginHTML = function(city) {
+
+        // add name of city to right side
+        $(".rightWrap").html(" ");
+        $(".rightWrap").append("<span class='card-title'>" + city + "</span>")
+    
+        // get todays date for dipslay
+        var date = moment().format("dddd, MMMM Do YYYY");
+         
+        // add date to right side
+        $(".rightWrap").append("<span class = card-subtile>" + date + "</span>")
+    
+        // assigns current api url to a variable 
+        var current = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
+        
+        // fetches data package
+        fetch(current).then(function(response){
+            if(response.ok) {
+                response.json().then(function(data){
+                    futureFetch(data);
+                })
+            } else {
+                // alert to please choose valid city
+            }
+        });
+}
 
 var futureFetch = function(data){
     var lat = data.coord.lat;
@@ -72,7 +82,7 @@ var createHTML = function (data) {
     $(".conditions").append("<li> Wind Speed: " + wind + " mph </li><li> Humidity: " + humidity + " % </li><li> UV Index: " + uvI + "</li><li>" + description + "</li>");
 
     // Current Temperature displayed as card body 
-    $(".rightWrap").append("<h2 class='card-body'>" + farenheit + " F|| " + celsius + " C")
+    $(".rightWrap").append("<h2 class='card-body'>" + farenheit + " F || " + celsius + " C")
 
     // weather.icon retrieved and appened to target div
     var iconUrl = "https://openweathermap.org/img/wn/" + icon + ".png";
@@ -98,7 +108,6 @@ var createHTML = function (data) {
         $(dayDivs[i]).html(" ");
 
         $(dayDivs[i]).append("<h4 class='card-title'>" + days[i] + " </h4>" + "<img height=.5em class='card-img-top' src=" + fiveIconUrl + "></img><h5>" + dailyHi + "F - Hi </h5><h5>" + dailyLow + "F - Low </h5><h5> Humidity: " + dailyHum + "% </h5>");
-
     }
 };
 
