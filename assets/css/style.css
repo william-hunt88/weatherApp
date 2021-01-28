@@ -1,3 +1,5 @@
+/* broad strokes */
+
 body {
     margin: 0;
     background-color: #EBEBD9;
@@ -10,7 +12,20 @@ header {
     justify-content: center;
     font-family: 'Concert One', cursive;
     margin: 0;
+}
 
+h4 {
+    font-family: 'Concert One', cursive;
+    text-align: center;
+    color: white;
+    font-size: 1.26em;
+    margin-top: 10px;
+}
+
+h5 {
+    font-size: .95em;
+    color: white;
+    font-family: 'Concert One', cursive;
 }
 
 .container {
@@ -22,6 +37,8 @@ header {
     height: 600px;
 
 }
+
+/* 3 main windows */
 
 .leftSide {
     grid-column: 1/ span 1;
@@ -57,6 +74,8 @@ header {
     margin-left: 0;
 };
 
+/* input & savedSearches */
+
 .cityInput {
     height: 35px;
     width: 75%;
@@ -68,13 +87,6 @@ header {
 }
 
 
-
-h4 {
-    font-family: 'Concert One', cursive;
-    text-align: center;
-    color: white;
-}
-
 .searchBtn {
     background-color: blue;
 }
@@ -84,7 +96,27 @@ h4 {
     display: flex;
     justify-content: center;
     margin-top: 50px;
+    color: white;
+    font-family: 'Concert One', cursive;
+    align-items: center;
+
 }
+
+.savedBtn {
+    color: white;
+    font-family: 'Concert One', cursive;
+    background-color: rgb(14, 95, 64);
+    border-radius: 12px;
+    width: 250px;
+    margin-top: 7px;
+}
+
+.savedBtn:hover {
+    background-color: white;
+    color: hsl(158, 23%, 63%);
+}
+
+/* details in various sections */
 
 .rightWrap {
     border: none;
@@ -111,22 +143,4 @@ h4 {
 .card {
     background-color :hsl(158, 23%, 63%);
     border: none;
-}
-
-h4 {
-    font-size: 1.26em;
-    margin-top: 10px;
-}
-
-h5 {
-    font-size: .95em;
-    color: white;
-    font-family: 'Concert One', cursive;
-}
-
-.savedBtn {
-    color: white;
-    font-family: 'Concert One', cursive;
-    background-color: rgb(14, 95, 64);
-    border-radius: 12px;
 }

@@ -1,9 +1,5 @@
-// Add Img Alts
 // Add Notes
-// Refactor so that city from saved button can be passed
-// account for errors....response.ok
-// mobile ready
-
+// mobile ready?
 
 var cityUrl = $("#cityInput").val().trim();
 var key = "f183369b23d768246e94cc35ace9f5f9"
@@ -15,6 +11,13 @@ $(".searchBtn").click(function() {
     // Gets value of input
     var city = $("#cityInput").val().trim();
 
+    if($(".savedBtn").html() !== city) {
+        // add name to list in leftSide
+        $(".savedDiv").append("<button class ='savedBtn'>" + city + "</button>");
+    } else {
+        return;
+    }
+
     // passes city to another function to do the rest 
     beginHTML(city);
 });
@@ -25,24 +28,21 @@ $(".savedDiv").on("click", ".savedBtn", function (event){
     beginHTML(city);
 });
 
-var beginHTML = function(city) {
+var beginHTML = function(searchValue) {
     
         // assigns current api url to a variable 
-        var current = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key;
+        var current = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&appid=" + key;
         
         // fetches first data package in order to extract Lat and Lon
         fetch(current).then(function(response){
             if(response.ok) {
                 response.json().then(function(data){
-
-                    // add name to list in leftSide
-                    $(".savedDiv").append("<button class ='savedBtn'>" + city + "</button>");
-
+                    
                     // clear destination div before populating
                     $(".rightWrap").html(" ");
 
                     // add name of city to right side
-                    $(".rightWrap").append("<span class='card-title'>" + city + "</span>");
+                    $(".rightWrap").append("<span class='card-title'>" + searchValue + "</span>");
        
                     // get todays date for dipslay
                     var date = moment().format("dddd, MMMM Do YYYY");
@@ -50,8 +50,11 @@ var beginHTML = function(city) {
                     // add date to right side
                     $(".rightWrap").append("<span class = card-subtile>" + date + "</span>")
 
+                    var lat = data.coord.lat;
+                    var lon = data.coord.lon;
+
                     //data package i sent to another function in order retrieve full forecast API
-                    futureFetch(data);
+                    futureFetch(lat, lon);
                 })
             } else {
                 // alert to please choose valid city
@@ -59,14 +62,12 @@ var beginHTML = function(city) {
 
                 // clear input of nonvalid value
                 $("#cityInput").val("");
-
             }
         });
-}
+};
 
-var futureFetch = function(data){
-    var lat = data.coord.lat;
-    var lon = data.coord.lon;
+// Takes data from current weather API and extracts lat and lon to use for multi day forecast API call
+var futureFetch = function(lat, lon){
 
     var fiveDay = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude={part}&appid=" + key;
     fetch(fiveDay).then(function(response){
@@ -97,7 +98,7 @@ var createHTML = function (data) {
 
     // weather.icon retrieved and appened to target div
     var iconUrl = "https://openweathermap.org/img/wn/" + icon + ".png";
-    $(".rightWrap").prepend("<img class='card-img-top' src =" + iconUrl + " height=120px>")
+    $(".rightWrap").prepend("<img alt = 'weather-icon' class='card-img-top' src =" + iconUrl + " height=120px>")
 
     // create cards for five day forecast
     today = moment();
@@ -118,7 +119,7 @@ var createHTML = function (data) {
         var fiveIconUrl = "https://openweathermap.org/img/wn/" + fiveIcon + ".png";
         $(dayDivs[i]).html(" ");
 
-        $(dayDivs[i]).append("<h4 class='card-title'>" + days[i] + " </h4>" + "<img height=.5em class='card-img-top' src=" + fiveIconUrl + "></img><h5>" + dailyHi + "F - Hi </h5><h5>" + dailyLow + "F - Low </h5><h5> Humidity: " + dailyHum + "% </h5>");
+        $(dayDivs[i]).append("<h4 class='card-title'>" + days[i] + " </h4>" + "<img alt = 'weather-icon' height=.5em class='card-img-top' src=" + fiveIconUrl + "></img><h5>" + dailyHi + "F - Hi </h5><h5>" + dailyLow + "F - Low </h5><h5> Humidity: " + dailyHum + "% </h5>");
     }
 };
 
