@@ -3,6 +3,7 @@
 var cityUrl = $("#cityInput").val().trim();
 var key = "f183369b23d768246e94cc35ace9f5f9"
 var current = "https://api.openweathermap.org/data/2.5/weather?q=" + cityUrl + "&appid=" + key;
+var savedArr = JSON.parse(localStorage.getItem("cities")) || [];
 
 
 //Button is clicked and value is taken
@@ -10,9 +11,11 @@ $(".searchBtn").click(function() {
     // Gets value of input
     var city = $("#cityInput").val().trim();
 
-    if($(".savedBtn").html() !== city) {
-        // add name to list in leftSide
-        $(".savedDiv").append("<button class ='savedBtn'>" + city + "</button>");
+    if(!savedArr.includes(city)) {
+        // push to saved array
+        savedArr.unshift(city);
+        localStorage.setItem("cities", JSON.stringify(savedArr));
+        renderBtns(savedArr);
     } else {
         return;
     }
@@ -88,12 +91,12 @@ var createHTML = function (data) {
     var celsius = Math.floor(farenheit - 32);
     var icon = data.current.weather[0].icon;
 
-    if(uvI >= 8 && uvI <= 10){
+    if(uvI >= 8){
         var uvIColor = "text-danger";
-    }else if(uvI >= 3 && uvI <= 7){
-        var uvIColor = "text-warning";
-    }else{
+    }else if(uvI <= 3){
         var uvIColor = "text-success";
+    }else{
+        var uvIColor = "text-warning";
     };
 
     // clear conditions div and appends new conditions
@@ -127,6 +130,16 @@ var createHTML = function (data) {
         $(dayDivs[i]).html(" ");
 
         $(dayDivs[i]).append("<h4 class='card-title'>" + days[i] + " </h4>" + "<img alt = 'weather-icon' height=.5em class='card-img-top' src=" + fiveIconUrl + "></img><h5>" + dailyHi + "F - Hi </h5><h5>" + dailyLow + "F - Low </h5><h5> Humidity: " + dailyHum + "% </h5>");
+    }
+};
+
+renderBtns(savedArr);
+
+
+function renderBtns(arr){
+    $(".savedDiv").html("");
+    for(var i = 0; i < arr.length; i++){
+        $(".savedDiv").append("<button class ='savedBtn'>" + arr[i] + "</button>");
     }
 };
 
