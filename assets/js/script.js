@@ -1,6 +1,5 @@
 // Add Notes
-// mobile ready?
-
+// mobile ready?;
 var cityUrl = $("#cityInput").val().trim();
 var key = "f183369b23d768246e94cc35ace9f5f9"
 var current = "https://api.openweathermap.org/data/2.5/weather?q=" + cityUrl + "&appid=" + key;
@@ -89,9 +88,17 @@ var createHTML = function (data) {
     var celsius = Math.floor(farenheit - 32);
     var icon = data.current.weather[0].icon;
 
+    if(uvI >= 8 && uvI <= 10){
+        var uvIColor = "text-danger";
+    }else if(uvI >= 3 && uvI <= 7){
+        var uvIColor = "text-warning";
+    }else{
+        var uvIColor = "text-success";
+    };
+
     // clear conditions div and appends new conditions
     $(".conditions").html(" ");
-    $(".conditions").append("<li> Wind Speed: " + wind + " mph </li><li> Humidity: " + humidity + " % </li><li> UV Index: " + uvI + "</li><li>" + description + "</li>");
+    $(".conditions").append("<li> Wind Speed: " + wind + " mph </li><li> Humidity: " + humidity + " % </li><li class="+ uvIColor +"> UV Index: " + uvI + "</li><li>" + description + "</li>");
 
     // Current Temperature displayed as card body 
     $(".rightWrap").append("<h2 class='card-body'>" + farenheit + " F || " + celsius + " C")
